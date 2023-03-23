@@ -8,4 +8,4 @@ A Problem SDK for MineCodeCTF Server.
 git clone https://github.com/Mine-Code/CTF-ProblemSDK
 cd CTF-ProblemSDK
 ./install.sh
-``
+```
