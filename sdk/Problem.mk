@@ -6,7 +6,7 @@ build: out.tar.gz
 
 .PHONY: test
 test: out.tar.gz .mc_ctf/test
-	@printf "\e[32mStarting container\e[0m\n"
+	@printf "\e[1;32mStarting container\e[0m\n"
 	$(eval CID := $(shell docker run -d -it -v $(PWD)/.mc_ctf/test:/mnt minecode-ctf-runner:latest /bin/bash))
 	@printf "\e[33mCreated container\e[0m \e[32m$(CID)\e[0m\n"
 
@@ -51,7 +51,7 @@ out.tar.gz: $(wildcard src/*) src/metadata.json \
 
 
 src/metadata.json: .mc_ctf/config.json .mc_ctf/flag.txt
-	@printf "\e[32mCreating\e[0m \e[1;33m$@\e[0m\n"
+	@printf "\e[1;32mCreating\e[0m \e[1;33m$@\e[0m\n"
 	@{ \
 		cat .mc_ctf/config.json; \
 		printf '{'; \
