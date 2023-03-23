@@ -1,0 +1,9 @@
+{
+  "saveAndRun": {
+    "commands": [
+      {
+        // "cmd": "make -C skel -f ../sdk/Makefile all"
+      }
+    ]
+  }
+}

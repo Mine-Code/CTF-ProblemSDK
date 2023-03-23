@@ -1,0 +1,1 @@
+mineCTF{test_flag}

@@ -1,0 +1,42 @@
+#!/bin/bash
+
+if [ "$MC_CTF_ROOT" = "" ]; then
+  export MC_CTF_ROOT=$HOME/.local/share/MC-CTF
+fi
+
+usage() {
+  echo "Usage:"
+  echo "  Project Initialization"
+  echo "    $1 init"
+  echo "  Project management"
+  echo "    $1 [build|test|clean]"
+}
+
+if [ -z "$1" ]; then
+    usage $0
+    exit 1
+fi
+
+PROGRAM_MODE=$1
+
+case $PROGRAM_MODE in
+    init)
+        printf "\e[33mExtracting skel.tar.gz...\e[0m\n"
+        tar -xzf $MC_CTF_ROOT/skel.tar.gz -C .
+        printf "\e[1;33mExtracted skelton project\e[0m\n"
+
+        printf "\e[1;32m  Build: mc_ctf build \e[0m\n"
+        printf "\e[1;32m  Test: mc_ctf test \e[0m\n"
+        printf "\e[1;32m  Help: mc_ctf help \e[0m\n"
+        ;;
+    build|test|clean)
+        make -f ~/.local/share/MC-CTF/Makefile.problem $PROGRAM_MODE
+        ;;
+    help)
+        usage $0
+        ;;
+    *)
+        usage $0
+        exit 1
+        ;;
+esac
