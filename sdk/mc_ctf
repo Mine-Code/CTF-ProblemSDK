@@ -4,6 +4,10 @@ if [ "$MC_CTF_ROOT" = "" ]; then
   export MC_CTF_ROOT=$HOME/.local/share/MC-CTF
 fi
 
+if [ "$PROBLEM_ROOT" = "" ]; then
+  export PROBLEM_ROOT=$PWD
+fi
+
 usage() {
   echo "Usage:"
   echo "  Project Initialization"
