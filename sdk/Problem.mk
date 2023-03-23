@@ -1,17 +1,8 @@
 .PHONY: all
 all: out.tar.gz
 
-.mc_ctf/test: out.tar.gz
-	@if [ -e $(PWD)/.mc_ctf/test -a -d $(PWD)/.mc_ctf/test ]; then \
-		printf "\e[1;32mUpdating .mc_ctf/test directory...\e[0m\n"; \
-		tar -xf out.tar.gz -C .mc_ctf/test; \
-		printf "\e[33mUpdated .mc_ctf/test directory\e[0m\n"; \
-	else\
-	  printf "\e[1;32mSetupping .mc_ctf/test directory...\e[0m\n"; \
-		mkdir -p .mc_ctf/test; \
-		tar -xf out.tar.gz -C .mc_ctf/test; \
-		printf "\e[33mSetupped .mc_ctf/test directory\e[0m\n"; \
-	fi
+.PHONY: build
+build: out.tar.gz
 
 .PHONY: test
 test: out.tar.gz .mc_ctf/test
@@ -28,6 +19,18 @@ test: out.tar.gz .mc_ctf/test
 .PHONY: clean
 clean:
 	rm out.tar.gz src/metadata.json .mc_ctf/test
+
+.mc_ctf/test: out.tar.gz
+	@if [ -e $(PWD)/.mc_ctf/test -a -d $(PWD)/.mc_ctf/test ]; then \
+		printf "\e[1;32mUpdating .mc_ctf/test directory...\e[0m\n"; \
+		tar -xf out.tar.gz -C .mc_ctf/test; \
+		printf "\e[33mUpdated .mc_ctf/test directory\e[0m\n"; \
+	else\
+	  printf "\e[1;32mSetupping .mc_ctf/test directory...\e[0m\n"; \
+		mkdir -p .mc_ctf/test; \
+		tar -xf out.tar.gz -C .mc_ctf/test; \
+		printf "\e[33mSetupped .mc_ctf/test directory\e[0m\n"; \
+	fi
 
 out.tar.gz: $(wildcard src/*) src/metadata.json \
 		.mc_ctf/.env .mc_ctf/runtime.sh \
