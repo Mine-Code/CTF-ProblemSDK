@@ -1,25 +1,26 @@
 .PHONY: all
 all: out.tar.gz
 
-.PHONY: test
-test: out.tar.gz
-	false
-	@if [ -e $(PWD)/.mc_ctf/test -a -d $(PWD)/.mc_ctf/test ]; then\
+.mc_ctf/test: out.tar.gz
+	@if [ -e $(PWD)/.mc_ctf/test -a -d $(PWD)/.mc_ctf/test ]; then \
 		printf "\e[1;32mUpdating .mc_ctf/test directory...\e[0m\n"; \
 		tar -xf out.tar.gz -C .mc_ctf/test; \
 		printf "\e[33mUpdated .mc_ctf/test directory\e[0m\n"; \
 	else\
 	  printf "\e[1;32mSetupping .mc_ctf/test directory...\e[0m\n"; \
-		# mkdir -p .mc_ctf/test; \
+		mkdir -p .mc_ctf/test; \
 		tar -xf out.tar.gz -C .mc_ctf/test; \
 		printf "\e[33mSetupped .mc_ctf/test directory\e[0m\n"; \
 	fi
 
+.PHONY: test
+test: out.tar.gz .mc_ctf/test
 	@printf "\e[32mStarting container\e[0m\n"
-	$(eval CID := $(shell docker run -d -it -v $(PWD)/.mc_ctf/test:/mnt minecode-ctf-runner /bin/bash))
+	$(eval CID := $(shell docker run -d -it -v $(PWD)/.mc_ctf/test:/mnt minecode-ctf-runner:latest /bin/bash))
 	@printf "\e[33mCreated container\e[0m \e[32m$(CID)\e[0m\n"
 	@printf "\e[32mStarting test\e[0m\n"
 	@docker exec $(CID) /mnt/.mc_ctf/init.sh
+	@docker exec $(CID) echo $$FLAG
 	@docker exec -d $(CID) /mnt/.mc_ctf/daemon.sh
 	@docker exec $(CID) /mnt/.mc_ctf/runtime.sh
 	@docker stop -s 9 $(CID)
@@ -40,7 +41,6 @@ out.tar.gz: $(wildcard src/*) src/metadata.json \
 
 	@printf "\e[33m  - Appending .mc_ctf/.env to archive\e[0m \e[1;33m$@\e[0m\n"
 	@cd .mc_ctf; tar -rf ../out.tar .env; cd ..
-
 
 	@printf "\e[32mCompressing out.tar\e[0m\n"
 	@gzip out.tar
