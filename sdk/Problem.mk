@@ -22,7 +22,7 @@ test: out.tar.gz .mc_ctf/test
 	@printf "\e[32mStarting test\e[0m\n"
 	@docker exec $(CID) runtime.sh /mnt/.mc_ctf/init.sh
 	@docker exec -d $(CID) runtime.sh /mnt/.mc_ctf/daemon.sh
-	@docker exec $(CID) runtime.sh /mnt/.mc_ctf/runtime.sh
+	@docker exec -it $(CID) runtime.sh /mnt/.mc_ctf/runtime.sh
 	@docker stop -s 9 $(CID)
 
 .PHONY: clean
