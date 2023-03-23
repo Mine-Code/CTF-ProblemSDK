@@ -46,7 +46,7 @@ out.tar.gz: $(wildcard src/*) src/metadata.json \
 	@cd .mc_ctf; tar -rf ../out.tar .env; cd ..
 
 	@printf "\e[32mCompressing out.tar\e[0m\n"
-	@gzip out.tar
+	@gzip -f out.tar
 	@printf "\e[32mCreated archive\e[0m \e[1;33m$@\e[0m\n"
 
 
