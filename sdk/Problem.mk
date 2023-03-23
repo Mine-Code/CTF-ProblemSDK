@@ -18,11 +18,11 @@ test: out.tar.gz .mc_ctf/test
 	@printf "\e[32mStarting container\e[0m\n"
 	$(eval CID := $(shell docker run -d -it -v $(PWD)/.mc_ctf/test:/mnt minecode-ctf-runner:latest /bin/bash))
 	@printf "\e[33mCreated container\e[0m \e[32m$(CID)\e[0m\n"
+
 	@printf "\e[32mStarting test\e[0m\n"
-	@docker exec $(CID) /mnt/.mc_ctf/init.sh
-	@docker exec $(CID) echo $$FLAG
-	@docker exec -d $(CID) /mnt/.mc_ctf/daemon.sh
-	@docker exec $(CID) /mnt/.mc_ctf/runtime.sh
+	@docker exec $(CID) runtime.sh /mnt/.mc_ctf/init.sh
+	@docker exec -d $(CID) runtime.sh /mnt/.mc_ctf/daemon.sh
+	@docker exec $(CID) runtime.sh /mnt/.mc_ctf/runtime.sh
 	@docker stop -s 9 $(CID)
 
 .PHONY: clean
