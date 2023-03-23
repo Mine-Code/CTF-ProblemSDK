@@ -34,7 +34,7 @@ case $PROGRAM_MODE in
         printf "\e[1;32m  Help: mc_ctf help \e[0m\n"
         ;;
     build|test|clean)
-        make -f ~/.local/share/MC-CTF/Makefile.problem $PROGRAM_MODE
+        make -f $MC_CTF_ROOT/Makefile.problem $PROGRAM_MODE
         ;;
     help)
         usage $0
