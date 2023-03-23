@@ -4,8 +4,8 @@ if [ "$MC_CTF_ROOT" = "" ]; then
   export MC_CTF_ROOT=$HOME/.local/share/MC-CTF
 fi
 
-if [ "$PROBLEM_ROOT" = "" ]; then
-  export PROBLEM_ROOT=$PWD
+if [ ! "$PROBLEM_ROOT" = "" ]; then
+  cd $PROBLEM_ROOT
 fi
 
 usage() {
