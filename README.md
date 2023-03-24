@@ -2,9 +2,11 @@
 
 A Problem SDK for MineCodeCTF Server.
 
-## Dependency
+## Quick install
 
-- [ctf-runtime](https://github.com/Mine-Code/ctf-runtime) MineCode CTF Runner
+```bash
+curl -sL https://raw.githubusercontent.com/Mine-Code/CTF-ProblemSDK/master/quick_install.sh | bash -s -- -
+```
 
 ## Install
 
